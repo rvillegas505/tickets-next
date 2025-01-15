@@ -1,8 +1,9 @@
 import axios from "axios";
 import { Ticket } from "@/models/ticket";
-import Link from "next/link";
+import TicketCard from "./TicketCard";
 
 const getTickets = async () => {
+  await new Promise(resolve => setTimeout(resolve, 3000)); //simular tiempo carga API
     try {
       const response = await axios.get('http://localhost:5000/tickets');
       return response.data;
@@ -18,21 +19,14 @@ const getTickets = async () => {
 export default async function TicketList() {
     const tickets = await getTickets();
     return (
-        <>
-        {tickets.map((ticket: Ticket) => (
-          <div key={ticket.id} className="card my-5">
-          <Link href={`tickets/${ticket.id}`} className="no-underline-link">
-            <h3>{ticket.title}</h3>
-            <p>{ticket.body.slice(0, 200)}...</p>
-            <div className={`pill ${ticket.priority}`}>
-              {ticket.priority} priority
-            </div>
-          </Link>
-        </div>
-        ))}
-        {tickets.length === 0 && (
-            <p className="text-center">There are no open tickets, yay!</p>
-        )}
-        </>
+      <>
+      {tickets.length > 0 ? (
+        tickets.map((ticket: Ticket) => (
+          <TicketCard key={ticket.id} ticket={ticket} />
+        ))
+      ) : (
+        <p className="text-center">There are no open tickets, yay!</p>
+      )}
+    </>
     );
   }

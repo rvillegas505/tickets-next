@@ -15,11 +15,7 @@ export const metadata: Metadata = {
   description: "dashboard de tickets en nextjs",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en">
       <body className={rubik.className}>

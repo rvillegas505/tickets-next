@@ -1,6 +1,8 @@
 // import Image from "next/image";
 // import styles from "./page.module.css";
+import { Suspense } from "react";
 import TicketList from "./TicketList";
+import Loading from "../loading";
 
 export default function Tickets() {
     return (
@@ -11,7 +13,9 @@ export default function Tickets() {
                 <p><small>Currently open tickets.</small></p>
                 </div>
             </nav>
-            <TicketList />
+            <Suspense fallback={<Loading />}>
+                <TicketList />
+            </Suspense>
         </main>
     );
   }
